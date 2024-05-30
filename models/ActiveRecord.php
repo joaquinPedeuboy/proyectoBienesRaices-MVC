@@ -44,7 +44,7 @@ class ActiveRecord {
         // Mensaje de exito
         if($resultado) {
             // Redireccion al usuario
-            header('Location: /BienesRaices/admin?Resultado=1');
+            header('Location: /admin?Resultado=1');
         }
     }
 
