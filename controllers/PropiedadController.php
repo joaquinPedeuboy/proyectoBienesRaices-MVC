@@ -1,6 +1,7 @@
 <?php
 
 namespace Controllers;
+
 use MVC\Router;
 use Model\Propiedad;
 use Model\Vendedor;
@@ -11,12 +12,14 @@ class PropiedadController {
     public static function index(Router $router) {
 
         $propiedades = Propiedad::all();
+        $vendedores = Vendedor::all();
         //Muestra mensaje condicional
         $resultado = $_GET['Resultado'] ?? null;
 
         $router->render('propiedades/admin', [
             'propiedades' => $propiedades,
-            'resultado' => $resultado
+            'resultado' => $resultado,
+            'vendedores' => $vendedores
         ]);
     }
 
