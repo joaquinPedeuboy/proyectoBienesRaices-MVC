@@ -10,7 +10,7 @@
 
         <?php endforeach; ?>
 
-        <form class="formulario" method="POST" enctype="multipart/form-data">
+        <form class="formulario" method="POST">
         <?php include __DIR__ . '/formularioVendedores.php'; ?>
 
             <input type="submit" value="Guardar Cambios" class="boton boton-verde">
