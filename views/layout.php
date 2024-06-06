@@ -42,9 +42,9 @@
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if($auth): ?>
-                            <a href="/cerrar-sesion">Cerrar Sesion</a>
+                            <a href="/logout">Cerrar Sesion</a>
                         <?php elseif(!$auth): ?>
-                            <a href="login.php">Iniciar Sesion</a>
+                            <a href="/login">Iniciar Sesion</a>
                         <?php endif; ?>
                     </nav>
                 </div>
