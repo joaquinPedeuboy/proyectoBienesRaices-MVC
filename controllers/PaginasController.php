@@ -4,6 +4,7 @@ namespace Controllers;
 
 use MVC\Router;
 use Model\propiedad;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class PaginasController {
 
@@ -55,12 +56,70 @@ class PaginasController {
 
     public static function contacto( Router $router) {
 
+        $mensaje = null;
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            debuguear($_POST);
+
+            $respuestas = $_POST['contacto'];
+            // Crear una instancia de phpmailer
+            $mail = new PHPMailer(true);
+
+            // Configurar SMTP
+            $mail->isSMTP();
+            $mail->Host = 'sandbox.smtp.mailtrap.io';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'f65ce70699d250';
+            $mail->Password = '9bf04de5fb99f4';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 465;
+
+            // Configurar el contenido del mail
+            $mail->setFrom('admin@bienesraices.com');
+            $mail->addAddress('admin@bienesraices.com', 'BienesRaices.com');
+            $mail->Subject = 'Tienes un Nuevo Mensaje';
+
+            // Habilitar HTML
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+
+            // Definir el contenido
+            $contenido = '<html>';
+            $contenido .='<p>Tienes un nuevo mensaje</p>';
+            $contenido .='<p>Nombre:  ' . $respuestas['nombre']  . ' </p>';
+            
+
+            // Enviar de forma condicional algunos campos de email o telefono
+            if($respuestas['contacto'] === 'telefono') {
+                $contenido .= '<p>Eligio ser contactado por Telefono:</p>';
+                $contenido .='<p>Telefono:  ' . $respuestas['telefono']  . ' </p>';
+                $contenido .='<p>Fecha Contacto:  ' . $respuestas['fecha']  . ' </p>';
+                $contenido .='<p>Hora:  ' . $respuestas['hora']  . ' </p>';
+
+            } else {
+                // Si es email entonces agregamos el campo de email
+                $contenido .= '<p>Eligio ser contactado por email:</p>';
+                $contenido .='<p>Email:  ' . $respuestas['email']  . ' </p>';
+            }
+            
+            $contenido .='<p>Mensaje:  ' . $respuestas['mensaje']  . ' </p>';
+            $contenido .='<p>Vende o Compra:  ' . $respuestas['tipo']  . ' </p>';
+            $contenido .='<p>Precio o Presupuesto:  $' . $respuestas['precio']  . ' </p>';
+            $contenido .='</html>';
+
+            $mail->Body = $contenido;
+            $mail->AltBody = 'Esto es texto alternativo';
+
+            // Enviar el email
+            if($mail->send()) {
+                $mensaje = "Mensaje enviado";
+            }else {
+                $mensaje = "El mensaje no se pudo enviar...";
+            };
+
         }
         
         $router->render('/paginas/contacto', [
-
+            'mensaje' => $mensaje
         ]);
     }
 }

@@ -1,6 +1,10 @@
 <main class="contenedor seccion">
     <h1>Contacto</h1>
 
+    <?php if($mensaje) { ?>
+            <p class='alerta exito'> <?php echo $mensaje; ?></p>
+    <?php } ?>
+
     <picture>
         <source srcset="build/img/destacada3.avif" type="image/avif">
         <source srcset="build/img/destacada3.webp" type="image/webp">
@@ -15,30 +19,24 @@
             <legend>Informacion Personal</legend>
 
             <label for="nombre">Nombre</label>
-            <input type="text" placeholder="Tu Nombre" id="nombre" name="contacto{nombre}" required>
-
-            <label for="email">E-Mail</label>
-            <input type="email" placeholder="Tu Email" id="email" name="contacto{email}" required>
-
-            <label for="telefono">Telefono</label>
-            <input type="tel" placeholder="Tu Telefono" id="telefono" name="contacto{telefono}">
+            <input type="text" placeholder="Tu Nombre" id="nombre" name="contacto[nombre]" >
 
             <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="contacto{mensaje}" required></textarea>
+            <textarea id="mensaje" name="contacto[mensaje]" ></textarea>
         </fieldset>
 
         <fieldset>
             <legend>Informacion sobre tu propiedad</legend>
 
             <label for="opciones">Vende o Compra</label>
-            <select id="opciones" name="contacto{tipo}" required>
+            <select id="opciones" name="contacto[tipo]" >
                 <option value="" disabled selected>-- Seleccione --</option>
                 <option value="Compra">Compra</option>
                 <option value="Vende">Vende</option>
             </select>
 
             <label for="presupuesto">Precio o Presupuesto</label>
-            <input type="number" placeholder="Tu Precio o Presupuesto" id="presupuesto" name="contacto{precio}" required>
+            <input type="number" placeholder="Tu Precio o Presupuesto" id="presupuesto" name="contacto[precio]" >
         </fieldset>
 
         <fieldset>
@@ -48,19 +46,13 @@
 
             <div class="forma-contacto">
                 <label for="contactar-telefono">Telefono</label>
-                <input name="contacto" type="radio" value="telefono" id="contactar-telefono" name="contacto{contacto}" required>
+                <input type="radio" value="telefono" id="contactar-telefono" name="contacto[contacto]" >
 
                 <label for="contactar-email">E-Mail</label>
-                <input name="contacto" type="radio" value="email" id="contactar-email" name="contacto{contacto}" required>
+                <input type="radio" value="email" id="contactar-email" name="contacto[contacto]" >
             </div>
 
-            <p>Si eligio telefono, elija la fecha y la hora</p>
-
-            <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" name="contacto{fecha}">
-
-            <label for="hora">hora</label>
-            <input type="time" id="hora" min="09:00" max="18:00" name="contacto{hora}">
+            <div id="contacto"></div>
         </fieldset>
 
         <input type="submit" value="Enviar" class="boton-verde">
